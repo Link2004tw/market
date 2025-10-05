@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Marketplace Website
+
+## Project Description
+
+This project is a fully functional marketplace website built using [Next.js](https://nextjs.org/), a powerful React framework for server-side rendering and static site generation. The platform enables users to browse, list, and purchase products or services in a seamless and responsive interface. Key features include user authentication, product listings, search functionality, and a shopping cart system, all designed with scalability and performance in mind. The project leverages modern web technologies and uses [Supabase](https://supabase.com/) as the backend database to manage data such as user profiles, product listings, and transactions securely and efficiently.
+
+## Prerequisites
+
+To run this project, you need to have [Node.js](https://nodejs.org/) installed on your system. Additionally, you will need a [Supabase](https://supabase.com/) account to set up the database.
+
+### Installing Node.js
+
+- **Windows/Mac**: Download and install Node.js from the [official Node.js website](https://nodejs.org/en/download/). Choose the LTS version for stability.
+- **Linux**: Use a package manager or follow instructions from the [Node.js download page](https://nodejs.org/en/download/package-manager/) for your distribution.
+- Verify installation by running the following commands in your terminal:
+  ```bash
+  node -v
+  npm -v
+  ```
+  These should display the installed versions of Node.js and npm.
+
+### Setting Up Supabase
+
+1. Sign up for a free account at [Supabase](https://supabase.com/).
+2. Create a new project in the Supabase dashboard.
+3. Obtain your Supabase project URL and API key from the project settings.
+4. Configure the environment variables (e.g., in a `.env.local` file) with your Supabase credentials:
+
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   ```
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up and run the project locally:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the Repository**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   git clone <repository-url>
+   cd <repository-name>
+   ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. **Install Dependencies**  
+   Run the following command to install all required packages using npm, including the Supabase client library:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
+
+   This will read the `package.json` file and install all dependencies listed under `dependencies` and `devDependencies`, including `@supabase/supabase-js` for Supabase integration.
+
+3. **Run the Development Server**  
+   Start the Next.js development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000/) in your browser to view the application.
+
+## Scripts
+
+The following scripts are available in `package.json`:
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the application for production.
+- `npm run start`: Runs the built application in production mode.
+- `npm run lint`: Runs the linter to check for code quality issues.
+
+## Project Structure
+
+- `pages/`: Contains Next.js pages and API routes.
+- `components/`: Reusable React components.
+- `styles/`: CSS or Tailwind CSS configuration for styling.
+- `public/`: Static assets like images and fonts.
+- `lib/`: Contains Supabase client initialization and utility functions for database operations.
+
+## Troubleshooting
+
+- If `npm install` fails, ensure you have the correct Node.js version (LTS recommended). You can use [nvm](https://github.com/nvm-sh/nvm) to manage Node.js versions.
+- Clear the npm cache if you encounter issues:
+  ```bash
+  npm cache clean --force
+  ```
+- Delete the `node_modules` folder and `package-lock.json` file, then run `npm install` again.
+- If you encounter Supabase-related errors, verify that your Supabase URL and API key are correctly set in the environment variables.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and APIs.
+- [Node.js Documentation](https://nodejs.org/en/docs/) - Reference for Node.js.
+- [npm Documentation](https://docs.npmjs.com/) - Guide for managing packages with npm.
+- [Supabase Documentation](https://supabase.com/docs) - Learn about Supabase features and database management.
