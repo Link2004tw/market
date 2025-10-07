@@ -77,7 +77,6 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/forms"), // For consistent form styling
-    require("@tailwindcss/typography"), // For better text content rendering
+
   ],
 };
