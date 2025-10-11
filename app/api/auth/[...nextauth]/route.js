@@ -1,5 +1,10 @@
-import { createClient } from "@/lib/server";
 import NextAuth from "next-auth";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const handler = NextAuth({
   providers: [
@@ -7,15 +12,15 @@ const handler = NextAuth({
       id: "supabase",
       name: "Supabase",
       type: "oauth",
-      wellKnown: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/.well-known/openid-configuration`,
+      wellKnown: `${supabaseUrl}/.well-known/openid-configuration`,
       authorization: {
         params: {
           scope: "openid email profile",
         },
       },
       idToken: true,
-      clientId: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      clientSecret: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      clientId: supabaseKey,
+      clientSecret: serviceRoleKey,
       checks: ["pkce", "state"],
       async profile(profile) {
         return {
@@ -32,9 +37,21 @@ const handler = NextAuth({
         return token;
       },
       async session({ session, token }) {
-        const supabase = createClient({ cookies: () => ({}) });
+        const cookieStore = cookies();
+        const supabase = createServerClient(supabaseUrl, supabaseKey, {
+          cookies: {
+            getAll() {
+              return cookieStore.getAll() || [];
+            },
+            setAll(cookiesToSet) {
+              cookiesToSet.forEach(({ name, value, options }) =>
+                cookieStore.set(name, value, options)
+              );
+            },
+          },
+        });
         const { data, error } = await supabase.auth.getSession();
-        if (error) throw new Error("Session validation failed");
+        if (error) throw error;
         return {
           ...session,
           access_token: token.access_token,
@@ -45,16 +62,25 @@ const handler = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      const supabase = createClient({ cookies: () => ({}) });
-      const { data, error } = await supabase.auth.getUser();
-      if (error || !data.user) return false;
-      return true; // Validate user server-side
+      return true;
     },
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
     async session({ session, token }) {
-      const supabase = createClient({ cookies: () => ({}) });
+      const cookieStore = cookies();
+      const supabase = createServerClient(supabaseUrl, supabaseKey, {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll() || [];
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          },
+        },
+      });
       const { data } = await supabase.auth.getUser();
       if (data.user) session.user = { ...session.user, ...data.user };
       return session;
