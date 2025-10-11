@@ -1,20 +1,11 @@
 class Order {
-  constructor({
-    oid,
-    uid,
-    payment,
-    location,
-    status,
-    dateTime = new Date(),
-    shipment,
-  }) {
+  constructor({ oid, uid, payment, location, status, dateTime = new Date() }) {
     this.oid = oid;
     this.uid = uid;
     this.payment = payment;
     this.location = location;
     this.status = status;
     this.dateTime = dateTime;
-    this.shipment = shipment;
   }
 }
 export default Order;
