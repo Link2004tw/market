@@ -1,4 +1,4 @@
-import { login, signup } from "../actions/signActions";
+import { login, logout, signup } from "../actions/signActions";
 
 export default function LoginPage() {
   return (
@@ -23,6 +23,12 @@ export default function LoginPage() {
           formAction={signup}
         >
           Sign up
+        </button>
+        <button
+          className="bg-red-400 rounded-lg py-2 px-4 mt-4 mr-4 text-white "
+          formAction={logout}
+        >
+          Logout
         </button>
       </form>
     </main>
