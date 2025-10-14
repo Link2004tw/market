@@ -9,16 +9,18 @@ export async function login(formData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const cr = {
     email: formData.get("email"),
     password: formData.get("password"),
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error, data } = await supabase.auth.signInWithPassword(cr);
+  console.log(data);
 
   if (error) {
     redirect("/error");
   }
+  //load his data from the database
 
   revalidatePath("/", "layout");
   redirect("/");
@@ -29,16 +31,19 @@ export async function signup(formData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const cr = {
     email: formData.get("email"),
     password: formData.get("password"),
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { error, data } = await supabase.auth.signUp(cr);
+
+  console.log(data);
 
   if (error) {
     redirect("/error");
   }
+  //register their data in the database
 
   revalidatePath("/", "layout");
   redirect("/");
@@ -53,4 +58,15 @@ export async function logout() {
 
   revalidatePath("/", "layout");
   redirect("/");
+}
+
+export async function changeUserType(newType) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/error");
+  }
+  // change the user last login to the newType either b or s;
 }
