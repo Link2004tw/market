@@ -1,14 +1,14 @@
 "use server";
 
 import { createClient } from "@/lib/server";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import User from "@/models/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function login(formData) {
   const supabase = await createClient();
-
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
+  //const supabaseAdmin = await crea
   const cr = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -20,10 +20,28 @@ export async function login(formData) {
   if (error) {
     redirect("/error");
   }
+  const authUID = data.user?.id;
+  if (!authUID) {
+    console.error("No user ID found in session");
+    redirect("/error?message=No user ID found");
+  }
   //load his data from the database
-
+  const { data: userData, error: userError } = await supabaseAdmin
+    .from("User")
+    .select("uID, username, email, phoneNumber, profileImage, lastLogin")
+    .eq("uID", authUID)
+    .single();
+  const user = new User(
+    userData.uID,
+    userData.username,
+    userData.email,
+    userData.phoneNumber,
+    userData.profileImage,
+    userData.lastLogin
+  );
   revalidatePath("/", "layout");
-  redirect("/");
+  //redirect("/");
+  return user.toJSON();
 }
 
 export async function signup(formData) {

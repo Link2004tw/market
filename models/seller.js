@@ -1,18 +1,20 @@
 import User from "./user";
 
 class Seller extends User {
-  constructor({
-    uid,
+  constructor(
+    uID,
     username,
     email,
     phoneNumber,
-    funds = 0.0,
-    serviceArea,
+    profileImage,
+    lastLogin,
     priority,
-  }) {
-    super({ uid, username, email, phoneNumber, funds });
-    this.serviceArea = serviceArea;
-    this.priority = priority;
+    hasExpress
+  ) {
+    super(uID, username, email, phoneNumber, profileImage, lastLogin); // Inherit User properties
+    this.priority = priority; // INT
+    this.hasExpress = hasExpress; // boolean
   }
 }
+
 export default Seller;
