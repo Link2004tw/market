@@ -6,6 +6,7 @@ export async function middleware(request) {
   const response = await updateSession(request);
 
   // If user is not authenticated, redirect to login
+  console.log(request.url);
   if (!response.isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -22,6 +23,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|api|login|signup.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api|register|login|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
