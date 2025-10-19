@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import PrimaryButton from "../components/UI/PrimaryButton";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -11,8 +12,8 @@ export default function RegisterForm() {
     email: "",
     password: "",
     confirmPassword: ""
-  });
 
+  })
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -57,6 +58,7 @@ export default function RegisterForm() {
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
           />
         </div>
+
       </div>
 
       {/* Phone number */}
@@ -169,13 +171,7 @@ export default function RegisterForm() {
 
 
 </div>
-      <button
-        type="submit"
-        className="bg-gray-900 text-white font-medium py-2 rounded-md hover:bg-gray-800 transition"
-      >
-        Create Account
-      </button>
-
+      <PrimaryButton>Create Account</PrimaryButton>
     </form>
   );
 }
