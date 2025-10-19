@@ -1,5 +1,6 @@
 "use client"
 
+
 import RegisterForm from "../register/form";
 import Link from "next/link";
 

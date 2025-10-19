@@ -35,20 +35,26 @@ export async function login(formData) {
   //load his data from the database
   const { data: userData, error: userError } = await supabaseAdmin
     .from("User")
-    .select("uID, username, email, phoneNumber, profileImage, lastLogin")
-    .eq("uID", authUID)
+    .select("uid, username, email, phonenumber, profileimage, lastlogin")
+    .eq("uid", authUID)
     .single();
-  const user = new User(
-    userData.uID,
-    userData.username,
-    userData.email,
-    userData.phoneNumber,
-    userData.profileImage,
-    userData.lastLogin
-  );
+  if (userData) {
+    const user = new User(
+      userData.uid,
+      userData.username,
+      userData.email,
+      userData.phonenumber,
+      userData.profileimage,
+      userData.lastlogin
+    );
+    revalidatePath("/", "layout");
+    return user.toJSON();
+  } else {
+    console.error("Failed to fetch user data:", userError);
+  }
   revalidatePath("/", "layout");
+
   //redirect("/");
-  return user.toJSON();
 }
 
 export async function signup(formData) {

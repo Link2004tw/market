@@ -19,6 +19,7 @@ export default function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showConfirm2, setShowConfirm2] = useState(false);
 
+
   function onSubmit(e) {
     e.preventDefault();
     console.log("Register");
@@ -33,6 +34,7 @@ export default function RegisterForm() {
             First Name
           </label>
           <input
+
             id="firstName"
             type="text"
             placeholder="Enter first name"
@@ -173,6 +175,7 @@ export default function RegisterForm() {
       >
         Create Account
       </button>
+
     </form>
   );
 }
