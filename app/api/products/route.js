@@ -24,9 +24,10 @@ export async function GET(request) {
 
   // Step 2: Get user's governorate from buyers table
   const { data: buyer, error: buyerError } = await supabaseAdmin
-    .from("buyers")
+    .from("buyer")
     .select("governorate")
-    .eq("uid", user.id)
+    //.eq("uid", user.id)
+    .eq("uid", "550e8400-e29b-41d4-a716-446655440001")
     .single();
 
   if (buyerError || !buyer) {
@@ -51,26 +52,26 @@ export async function GET(request) {
 
   // Step 4: Query products with filters, joining with Locations via sellers
   let query = supabaseAdmin
-    .from("Product")
+    .from("product")
     .select(
       `
-      pID,
+      pid,
       name,
       price,
       image,
       available,
       description,
-      minDays,
-      maxDays,
+      mindays,
+      maxdays,
       suid,
-      categoryID,
-      categories (name),
-      sellers (
-        Locations (cost)
+      categoryid,
+      category (name),
+      seller (
+        locations (cost)
       )
     `
     )
-    .eq("sellers.Locations.location", governorate);
+    .eq("seller.locations.location", governorate);
 
   // Apply keyword search
   if (q) {
@@ -79,7 +80,7 @@ export async function GET(request) {
 
   // Apply category filter
   if (category) {
-    query = query.eq("categoryID", parseInt(category));
+    query = query.eq("categoryid", parseInt(category));
   }
 
   // Apply price range filters
