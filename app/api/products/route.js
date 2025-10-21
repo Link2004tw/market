@@ -26,8 +26,8 @@ export async function GET(request) {
   const { data: buyer, error: buyerError } = await supabaseAdmin
     .from("buyer")
     .select("governorate")
-    //.eq("uid", user.id)
-    .eq("uid", "550e8400-e29b-41d4-a716-446655440001")
+    .eq("uid", user.id)
+    //.eq("uid", "550e8400-e29b-41d4-a716-446655440001")
     .single();
 
   if (buyerError || !buyer) {
