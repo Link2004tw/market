@@ -1,9 +1,12 @@
 import { createClient } from "@/lib/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
+  const cookieStore = await cookies();
+  console.log("Cookies:", cookieStore.getAll());
   const q = searchParams.get("q") || "";
   const category = searchParams.get("category") || "";
   const minPrice = searchParams.get("minPrice")
@@ -13,14 +16,16 @@ export async function GET(request) {
     ? parseFloat(searchParams.get("maxPrice"))
     : null;
   const available = searchParams.get("available") === "true";
+  const sellerName = searchParams.get("seller");
 
   const supabase = await createClient();
-  // Step 1: Check if user is authenticated
   const {
     data: { user },
     error: authError,
   } = await supabase.auth.getUser();
+
   if (authError || !user) {
+    console.log(authError);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -31,10 +36,20 @@ export async function GET(request) {
     .eq("uid", user.id)
     //.eq("uid", "550e8400-e29b-41d4-a716-446655440001")
     .single();
+  const { data: seller, error: sellerError } = await supabaseAdmin
+    .from("seller")
+    .select("uid")
+    .eq("name", sellerName);
 
   if (buyerError || !buyer) {
     return NextResponse.json(
       { error: "User not found in buyers table" },
+      { status: 404 }
+    );
+  }
+  if (sellerError || !seller) {
+    return NextResponse.json(
+      { error: "User not found in sellers table" },
       { status: 404 }
     );
   }
