@@ -9,74 +9,50 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#1D4ED8", // Vibrant blue for buttons, links, and accents
-          light: "#3B82F6",
-          dark: "#1E40AF",
+          400: "#3B82F6", // Vibrant blue for focus rings, buttons
+          900: "#1E3A8A", // Dark blue for text
         },
         secondary: {
-          DEFAULT: "#10B981", // Green for success states, like purchase confirmation
-          light: "#34D399",
-          dark: "#059669",
+          50: "#E6FFFA", // Light teal for backgrounds
+          800: "#2DD4BF", // Rich teal for text, accents
         },
-        neutral: {
-          DEFAULT: "#4B5563", // Neutral gray for text and backgrounds
-          light: "#F3F4F6",
-          dark: "#1F2A44",
+        gray: {
+          300: "#D1D5DB", // border-gray-300
+          700: "#4B5563", // text-gray-700 (labels)
         },
-        accent: {
-          DEFAULT: "#F59E0B", // Warm accent for highlights, like ratings or promotions
-          light: "#FBBF24",
-          dark: "#D97706",
+        black: "#000000", // text-black
+        white: "#FFFFFF", // bg-white
+        placeholder: {
+          gray: "#9CA3AF", // placeholder-gray-400
         },
-        error: {
-          DEFAULT: "#EF4444", // Red for error messages or alerts
-          light: "#F87171",
-          dark: "#B91C1C",
-        },
-      },
-      fontFamily: {
-        sans: [
-          "Inter",
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Arial",
-          "sans-serif",
-        ],
-        heading: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
-      },
-      fontSize: {
-        xs: ["0.75rem", { lineHeight: "1rem" }],
-        sm: ["0.875rem", { lineHeight: "1.25rem" }],
-        base: ["1rem", { lineHeight: "1.5rem" }],
-        lg: ["1.125rem", { lineHeight: "1.75rem" }],
-        xl: ["1.25rem", { lineHeight: "1.75rem" }],
-        "2xl": ["1.5rem", { lineHeight: "2rem" }],
-        "3xl": ["1.875rem", { lineHeight: "2.25rem" }],
-        "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
       },
       spacing: {
-        18: "4.5rem",
-        72: "18rem",
-        84: "21rem",
-        96: "24rem",
+        1: "0.25rem", // space-y-1
+        2: "0.5rem", // gap-2
+        3: "0.75rem", // px-3, right-3
+        4: "1rem", // space-y-4, gap-4
+        9: "2.25rem", // top-9
+        32: "8rem", // w-32
       },
       borderRadius: {
-        xl: "1rem",
-        "2xl": "1.5rem",
+        md: "0.375rem", // rounded-md
+        lg: "0.5rem", // rounded-lg
       },
-      boxShadow: {
-        card: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-        modal:
-          "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      fontSize: {
+        sm: ["0.875rem", { lineHeight: "1.25rem" }], // text-sm
+      },
+      fontWeight: {
+        medium: 500, // font-medium
+      },
+      ringWidth: {
+        2: "2px", // focus:ring-2
+      },
+      ringColor: {
+        primary: {
+          400: "#3B82F6", // focus:ring-primary-400
+        },
       },
     },
   },
-  plugins: [
-
-  ],
+  plugins: [],
 };
