@@ -139,21 +139,38 @@ export async function signup(formData) {
     });
     imageUrl = uploadResult.secure_url;
   }
-  const { error: userError } = await supabaseAdmin.from("User").insert({
+ /* const { error: userError } = await supabaseAdmin.from("User").insert({
     uID: userId,
     username: data.username,
     email: data.email,
     phoneNumber: data.phoneNumber,
     profileImage: imageUrl,
     lastLogin: "b", // Default as per schema
-  });
+  });*/
+
+  console.log("Would insert:", {
+  uID: userId,
+  username: data.username,
+  email: data.email,
+  phoneNumber: data.phoneNumber,
+  profileImage: imageUrl,
+  lastLogin: "b",
+ });
+
 
   if (userError) {
     throw new Error(`Failed to save user data: ${userError.message}`);
   }
 
   // Insert into Buyer table using supabaseAdmin
-  const { error: buyerError } = await supabaseAdmin.from("Buyer").insert({
+ /* const { error: buyerError } = await supabaseAdmin.from("Buyer").insert({
+    uID: userId,
+    street: data.street,
+    province: data.province,
+    governorate: data.governorate,
+  });*/
+
+  console.log("Would insert:", { 
     uID: userId,
     street: data.street,
     province: data.province,
