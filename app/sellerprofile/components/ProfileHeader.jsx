@@ -26,7 +26,7 @@ export default function ProfileHeader() {
       }
       const data = await res.json();
       console.log("User Profile:", data);
-
+      //map el data le user model
       setUser(data);
     };
     fetchUser();
