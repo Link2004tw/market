@@ -13,7 +13,7 @@ export default function ProfileHeader() {
       const u = await supabase.auth.getUser();
 
       const id = u.data.user.id;
-      const res = await fetch(`/api/user/${id}`, {
+      const res = await fetch(`/api/user`, {
         method: "GET",
         credentials: "include", // Key fix: Sends cookies/sessions for auth
         headers: {
