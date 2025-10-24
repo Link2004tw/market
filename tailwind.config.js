@@ -9,36 +9,55 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          400: "#3B82F6", // Vibrant blue for focus rings, buttons
-          900: "#1E3A8A", // Dark blue for text
+          100: "#DBEAFE", // Very light blue for subtle backgrounds
+          200: "#BFDBFE",
+          400: "#3B82F6", // Vibrant blue for buttons, focus rings
+          600: "#2563EB", // Slightly darker for hover
+          900: "#1E3A8A", // Dark blue for text, headers
         },
         secondary: {
-          50: "#E6FFFA", // Light teal for backgrounds
-          800: "#2DD4BF", // Rich teal for text, accents
+          100: "#F0FDFA", // Very light teal for backgrounds
+          200: "#CCFBF1",
+          400: "#5EEAD4", // Bright teal for accents
+          800: "#2DD4BF", // Rich teal for text, icons
+        },
+        accent: {
+          400: "#F59E0B", // Soft orange for hover states, secondary actions
+          600: "#D97706", // Darker orange for hover
         },
         gray: {
-          300: "#D1D5DB", // border-gray-300
-          700: "#4B5563", // text-gray-700 (labels)
+          50: "#F9FAFB", // Very light gray for backgrounds
+          100: "#F3F4F6", // Subtle backgrounds
+          200: "#E5E7EB", // Light borders
+          300: "#D1D5DB", // Borders
+          400: "#9CA3AF", // Placeholder text
+          600: "#4B5563", // Hover states, secondary text
+          700: "#374151", // Primary text, labels
+          800: "#1F2937", // Darker elements
+          900: "#111827", // Darkest text
         },
         black: "#000000", // text-black
         white: "#FFFFFF", // bg-white
-        placeholder: {
-          gray: "#9CA3AF", // placeholder-gray-400
-        },
       },
       spacing: {
         1: "0.25rem", // space-y-1
         2: "0.5rem", // gap-2
         3: "0.75rem", // px-3, right-3
         4: "1rem", // space-y-4, gap-4
-        9: "2.25rem", // top-9
+        6: "1.5rem", // py-6
+        8: "2rem", // top-8
+        12: "3rem", // h-12 for textarea
         32: "8rem", // w-32
+        68: "68px", // h-[68px]
       },
       borderRadius: {
         md: "0.375rem", // rounded-md
         lg: "0.5rem", // rounded-lg
+        xl: "0.75rem", // rounded-xl
+        full: "9999px", // rounded-full
       },
       fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }], // text-xs
         sm: ["0.875rem", { lineHeight: "1.25rem" }], // text-sm
       },
       fontWeight: {
