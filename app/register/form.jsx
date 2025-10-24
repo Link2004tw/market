@@ -12,9 +12,10 @@ export default function RegisterForm() {
     password: "",
     confirmPassword: "",
     governorate: "",
-    addressDetails: "",
+    province: "",
+    street: "",
   });
-  const [phoneError, setPhoneError] = useState(""); // State for phone validation error
+  const [phoneError, setPhoneError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [profilePic, setProfilePic] = useState("/user.png");
@@ -93,7 +94,7 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-primary-gray-50 rounded-xl px-4 py-6 w-full max-w-3xl mx-auto md:items-start"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-primary-gray-50 rounded-xl px-3 w-full max-w-3xl mx-auto md:items-start"
     >
       {/* Left section – Form fields */}
       <div className="flex flex-col space-y-4 text-black text-sm">
@@ -108,7 +109,7 @@ export default function RegisterForm() {
             placeholder="Enter your username"
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
-            className="border border-primary-gray-300 rounded-md px-3 py-2 bg-primary-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+            className="border border-primary-gray-300 rounded-md px-3 py-2 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
             required
           />
         </div>
@@ -119,33 +120,35 @@ export default function RegisterForm() {
             Mobile number <span className="text-secondary-400">*</span>
           </label>
           <div className="flex items-center gap-2">
-            <div
-              className="inline-flex items-center gap-1.5 rounded-md border border-primary-gray-300 bg-primary-gray-100 px-2 py-2 text-black w-32 justify-center text-sm"
-              aria-label="Country"
-            >
+            <div className="inline-flex items-center gap-1.5 rounded-md border border-primary-gray-300 bg-gray-100 px-2 py-2 text-black w-32 justify-center text-sm">
               <span aria-hidden>🇪🇬</span>
               <span>+20</span>
             </div>
-            <input
-              id="phoneNumber"
-              type="tel"
-              inputMode="numeric"
-              placeholder="1XXXXXXXXX"
-              className={`flex-1 rounded-md border border-primary-gray-300 bg-primary-white px-3 py-2 text-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 transition ${
-                phoneError ? "border-secondary-400" : ""
-              }`}
-              value={form.phoneLocal}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, "").slice(0, 10);
-                setForm({ ...form, phoneLocal: value });
-                validatePhoneNumber(value);
-              }}
-              required
-            />
+           <input
+  id="phoneNumber"
+  type="tel"
+  inputMode="numeric"
+  placeholder="1XXXXXXXXX"
+  className={`flex-1 rounded-md bg-primary-white px-3 py-2 text-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition
+    ${
+      phoneError
+        ? "border-1 border-red-200 focus:ring-red-300"
+        : "border border-primary-gray-300 focus:ring-primary-400"
+    }`}
+  value={form.phoneLocal}
+  onChange={(e) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setForm({ ...form, phoneLocal: value });
+    validatePhoneNumber(value);
+  }}
+  required
+/>
+
           </div>
-          {phoneError && (
-            <p className="text-secondary-400 text-xs">{phoneError}</p>
-          )}
+         {phoneError && (
+  <p className="text-red-500 text-xs mt-1 font-medium">⚠️ {phoneError}</p>
+)}
+
         </div>
 
         {/* Email */}
@@ -159,7 +162,7 @@ export default function RegisterForm() {
             placeholder="Enter your email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border border-primary-gray-300 rounded-md px-3 py-2 bg-primary-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+            className="border border-primary-gray-300 rounded-md px-3 py-2 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
             required
           />
         </div>
@@ -175,7 +178,7 @@ export default function RegisterForm() {
             placeholder="Enter your password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="border border-primary-gray-300 rounded-md px-3 py-2 pr-9 bg-primary-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+            className="border border-primary-gray-300 rounded-md px-3 py-2 pr-9 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
             required
           />
           <button
@@ -205,7 +208,7 @@ export default function RegisterForm() {
             onChange={(e) =>
               setForm({ ...form, confirmPassword: e.target.value })
             }
-            className="border border-primary-gray-300 rounded-md px-3 py-2 pr-9 bg-primary-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+            className="border border-primary-gray-300 rounded-md px-3 py-2 pr-9 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
             required
           />
           <button
@@ -224,12 +227,11 @@ export default function RegisterForm() {
       </div>
 
       {/* Right section – Profile picture + Address */}
-      <div className="flex flex-col justify-start text-black text-sm space-y-4">
+      <div className="flex flex-col justify-start text-black text-sm space-y-6">
         {/* Profile picture */}
-        <div className="flex flex-col items-center space-y-3 mt-1 md:mt-0">
+        <div className="flex flex-col items-center space-y-2 mt-1 md:mt-0">
           <h2 className="font-medium text-black">Profile picture</h2>
-
-          <div className="relative w-24 h-24 rounded-full border border-primary-gray-300 bg-primary-gray-100">
+          <div className="relative w-24 h-24 rounded-full border border-primary-gray-300 bg-gray-100">
             <div className="relative w-full h-full overflow-hidden rounded-full">
               <Image
                 src={profilePic}
@@ -242,7 +244,7 @@ export default function RegisterForm() {
               <button
                 type="button"
                 onClick={resetProfilePic}
-                className="absolute -top-1 -right-1 bg-primary-gray-800 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-accent-600 transition"
+                className="absolute -top-1 -right-1 bg-gray-800 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-gray-600 transition"
               >
                 ✕
               </button>
@@ -251,7 +253,7 @@ export default function RegisterForm() {
 
           <label
             htmlFor="profileImage"
-            className="cursor-pointer bg-primary-gray-200 hover:bg-accent-400 text-black px-3 py-2 rounded-md text-sm font-medium transition"
+            className="cursor-pointer bg-gray-200 hover:bg-gray-300 text-black px-3 py-1.5 rounded-md text-sm font-medium transition"
           >
             Add Picture
           </label>
@@ -266,45 +268,61 @@ export default function RegisterForm() {
         </div>
 
         {/* Address Section */}
-        <div className="flex flex-col space-y-1 w-full mt-3">
+        <div className="flex flex-col space-y-1 w-full mt-1">
           <label htmlFor="governorate" className="font-medium text-black">
-            Address <span className="text-secondary-400">*</span>
+            Governorate <span className="text-secondary-400">*</span>
           </label>
+          <select
+            id="governorate"
+            value={form.governorate}
+            onChange={(e) => setForm({ ...form, governorate: e.target.value })}
+            className="border border-primary-gray-300 rounded-md px-3 py-1.5 bg-white text-black focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+            required
+          >
+            <option value="">Select governorate</option>
+            {governorates.map((gov) => (
+              <option key={gov} value={gov}>
+                {gov}
+              </option>
+            ))}
+          </select>
 
-          <div className="flex flex-col space-y-3 w-full">
-            <select
-              id="governorate"
-              value={form.governorate}
-              onChange={(e) =>
-                setForm({ ...form, governorate: e.target.value })
-              }
-              className="border border-primary-gray-300 rounded-md px-3 py-2 bg-primary-white text-black focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+          {/* Province input */}
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="province" className="font-medium text-black">
+              Province <span className="text-secondary-400">*</span>
+            </label>
+            <input
+              id="province"
+              type="text"
+              placeholder="Enter province"
+              value={form.province}
+              onChange={(e) => setForm({ ...form, province: e.target.value })}
+              className="border border-primary-gray-300 rounded-md px-3 py-1.5 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
               required
-            >
-              <option value="">Select governorate</option>
-              {governorates.map((gov) => (
-                <option key={gov} value={gov}>
-                  {gov}
-                </option>
-              ))}
-            </select>
+            />
+          </div>
 
-            <textarea
-              id="addressDetails"
-              placeholder="Street name, building number, apartment, landmark..."
-              value={form.addressDetails}
-              onChange={(e) =>
-                setForm({ ...form, addressDetails: e.target.value })
-              }
-              className="border border-primary-gray-300 rounded-md px-3 py-2 bg-primary-white text-black placeholder-gray-400 h-12 resize-none focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
+          {/* Street input */}
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="street" className="font-medium text-black">
+              Street <span className="text-secondary-400">*</span>
+            </label>
+            <input
+              id="street"
+              type="text"
+              placeholder="Enter street, building, floor, apartment"
+              value={form.street}
+              onChange={(e) => setForm({ ...form, street: e.target.value })}
+              className="border border-primary-gray-300 rounded-md px-3 py-1.5 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
               required
-            ></textarea>
+            />
           </div>
         </div>
       </div>
 
       {/* Button row spanning both columns */}
-      <div className="w-full md:col-span-2 mt-4">
+      <div className="w-full md:col-span-2 mt-1">
         <PrimaryButton className="w-full bg-primary-400 hover:bg-primary-600 text-white rounded-md py-2 transition">
           Create Account
         </PrimaryButton>
