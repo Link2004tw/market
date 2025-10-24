@@ -37,6 +37,7 @@ export default function RegisterForm() {
     // use try and catch and async and await
     // modify the onSubmit function first to be async
     // modify the signup function to just console log the form data
+    // learn how to use the useAction hook from nextjs
   }
 
   function handleProfilePicUpload(e) {
