@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import { signup } from "../actions/signActions";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -32,6 +33,10 @@ export default function RegisterForm() {
       return;
     }
     console.log("Register form submitted:", form);
+    // learn how to use the server action and use signup function it is already imported
+    // use try and catch and async and await
+    // modify the onSubmit function first to be async
+    // modify the signup function to just console log the form data
   }
 
   function handleProfilePicUpload(e) {
@@ -124,31 +129,31 @@ export default function RegisterForm() {
               <span aria-hidden>🇪🇬</span>
               <span>+20</span>
             </div>
-           <input
-  id="phoneNumber"
-  type="tel"
-  inputMode="numeric"
-  placeholder="1XXXXXXXXX"
-  className={`flex-1 rounded-md bg-primary-white px-3 py-2 text-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition
+            <input
+              id="phoneNumber"
+              type="tel"
+              inputMode="numeric"
+              placeholder="1XXXXXXXXX"
+              className={`flex-1 rounded-md bg-primary-white px-3 py-2 text-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition
     ${
       phoneError
         ? "border-1 border-red-200 focus:ring-red-300"
         : "border border-primary-gray-300 focus:ring-primary-400"
     }`}
-  value={form.phoneLocal}
-  onChange={(e) => {
-    const value = e.target.value.replace(/\D/g, "").slice(0, 10);
-    setForm({ ...form, phoneLocal: value });
-    validatePhoneNumber(value);
-  }}
-  required
-/>
-
+              value={form.phoneLocal}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                setForm({ ...form, phoneLocal: value });
+                validatePhoneNumber(value);
+              }}
+              required
+            />
           </div>
-         {phoneError && (
-  <p className="text-red-500 text-xs mt-1 font-medium">⚠️ {phoneError}</p>
-)}
-
+          {phoneError && (
+            <p className="text-red-500 text-xs mt-1 font-medium">
+              ⚠️ {phoneError}
+            </p>
+          )}
         </div>
 
         {/* Email */}
